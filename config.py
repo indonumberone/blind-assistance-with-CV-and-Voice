@@ -19,7 +19,7 @@ PROCESS_EVERY_N_FRAMES = 2
 # Class names for object detection
 CLASS_NAMES = [
     "Tempat Sampah", "kursi", "lampu lalu lintas", "lubang-jalan", "mobil",
-    "motor", "person", "pohon", "tangga", "zebracross"
+    "motor", "manusia", "pohon", "tangga", "zebracross"
 ]
 
 # Text-to-Speech Configuration

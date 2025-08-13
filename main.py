@@ -61,7 +61,11 @@ class IuSeeApp:
             return
         
         print(f"Distance: {distance_cm} cm")
-        
+        print(f"Distance: {distance_cm} cm")
+        print(f"Detected labels: {detected_labels}")
+        print(f"Last spoken labels: {self.last_spoken_labels}")
+        print(f"Labels changed: {detected_labels != self.last_spoken_labels}")
+
         
         if detected_labels != self.last_spoken_labels and distance_cm < DISTANCE_THRESHOLD_CM * 2:
             self.last_spoken_labels = detected_labels
@@ -69,7 +73,7 @@ class IuSeeApp:
             spoken_text = f"AWASS Ada {labels_text} di depan jarak {int(distance_cm)} sentimeter"
             print(spoken_text)
             self.tts.speak(spoken_text)
-        elif distance_cm < DISTANCE_THRESHOLD_CM:
+        elif distance_cm <= DISTANCE_THRESHOLD_CM:
             spoken_text = f"AWASS Ada sesuatu disdepan jarak {int(distance_cm)} sentimeter"
             print(spoken_text)
             self.tts.speak(spoken_text)
