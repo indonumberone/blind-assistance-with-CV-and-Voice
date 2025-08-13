@@ -130,8 +130,12 @@ class ObjectDetector:
         input_name = self.session.get_inputs()[0].name
         outputs = self.session.run(None, {input_name: input_img})[0]
         
-        # Process detections - only extract labels
+        # Get original frame dimensions
+        h, w = frame.shape[:2]
+        
+        # Process detections
         detected_labels = set()
+        
         for det in outputs[0]:
             x1, y1, x2, y2, conf, cls_id = det
             
@@ -142,6 +146,13 @@ class ObjectDetector:
             if cls_id < len(self.class_names):
                 label = self.class_names[cls_id]
                 detected_labels.add(label)
+                
+                # Scale coordinates back to original frame size
+                x1 = int(x1 * w / self.inference_size)
+                y1 = int(y1 * h / self.inference_size)
+                x2 = int(x2 * w / self.inference_size)
+                y2 = int(y2 * h / self.inference_size)
+                
         
         return detected_labels
 
